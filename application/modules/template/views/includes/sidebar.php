@@ -145,8 +145,8 @@
    			),
    			"language" => array("controller" => "language","method"     => "index","permission" => "read"),    
     		"application_setting" => array("controller" => "setting","method" => "index","permission" => "read"), 
-    		"server_setting" => array("controller" => "serversetting","method"  => "index","permission" => "read"),
-			"factory_reset" => array("controller" => "setting","method"  => "factoryreset","permission" => "read"), 
+    		// "server_setting" => array("controller" => "serversetting","method"  => "index","permission" => "read"),
+			// "factory_reset" => array("controller" => "setting","method"  => "factoryreset","permission" => "read"), 
     		"currency" => array("controller" => "currency","method" => "index","permission" => "read"), 
     		"country" => array("controller" => "country_city_list","method"=> "index", "permission" => "read"),   
 			"state" => array("controller" => "country_city_list","method" => "statelist","permission" => "read"),
@@ -354,7 +354,7 @@
             </ul>
         </li>
         
-        <li class="treeview"><a href="<?php echo base_url('addon/module/index') ?>"><i class="fa fa-adn"></i><span><?php echo display('moduless')?></span> </a></li>
+        <!-- <li class="treeview"><a href="<?php echo base_url('addon/module/index') ?>"><i class="fa fa-adn"></i><span><?php echo display('modules')?></span> </a></li> -->
         <li class="treeview"><a href="<?php echo base_url('addon/theme/index') ?>"><i class="fa fa-adn"></i><span><?php echo display('themes')?></span> </a></li>
 		<li class="treeview <?php echo (($this->uri->segment(2)=="role" ||$this->uri->segment(2)=="module_permission")?"active":null) ?>">
             <a href="#">
