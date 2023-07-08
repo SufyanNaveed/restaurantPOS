@@ -615,8 +615,8 @@ function sumcalculation(id=null){
          success: function(data) {
            
             if(data !=1){
-                alert(data);
-                check = false;
+                //alert(data); 
+                // check = false;
                 }
                 
            

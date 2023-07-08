@@ -872,10 +872,11 @@ public function customer_dropdown()
     {
 	    $this->db->select($select_items);
         $this->db->from($table);
-        foreach ($where_array as $field => $value) {
+		foreach ($where_array as $field => $value) {
             $this->db->where($field, $value);
         }
-        return $this->db->get()->row();
+		$res = $this->db->get()->row();
+		return $res;
     }
 	public function read_all($select_items, $table, $where_array, $order_by_name = NULL, $order_by = NULL)
     {
@@ -927,7 +928,17 @@ public function customer_dropdown()
 			$query = $this->db->get();
 			$orderdetails=$query->result();
 			return $orderdetails;
-		}
+	}
+
+	public function waiterDetail($id){
+		$this->db->select('*');
+		$this->db->from('employee_history');
+		$this->db->where('emp_his_id', $id);
+		$query = $this->db->get();
+		$orderdetails=$query->row();
+		return $orderdetails;
+	}
+
 	public function count_order()
 	{
 		$this->db->select('customer_order.*,customer_info.customer_name,customer_type.customer_type,employee_history.first_name,employee_history.last_name,rest_table.tablename');
@@ -992,11 +1003,27 @@ public function customer_dropdown()
 		else{
 			$where="order_menu.order_id = '".$id."' ";
 			}
-		$sql="SELECT order_menu.row_id,order_menu.order_id,order_menu.groupmid as menu_id,order_menu.notes,order_menu.add_on_id,order_menu.addonsqty,order_menu.groupvarient as varientid,order_menu.addonsuid,order_menu.qroupqty as menuqty,order_menu.price as price,order_menu.isgroup,order_menu.food_status,order_menu.allfoodready,order_menu.isupdate, item_foods.ProductName, variant.variantid, variant.variantName, variant.price as mprice FROM order_menu LEFT JOIN item_foods ON order_menu.groupmid=item_foods.ProductsID LEFT JOIN variant ON order_menu.groupvarient=variant.variantid WHERE {$where} AND order_menu.isgroup=1 Group BY order_menu.groupmid UNION SELECT order_menu.row_id,order_menu.order_id,order_menu.menu_id as menu_id,order_menu.notes,order_menu.add_on_id,order_menu.addonsqty,order_menu.varientid as varientid,order_menu.addonsuid,order_menu.menuqty as menuqty,order_menu.price as price,order_menu.isgroup,order_menu.food_status,order_menu.allfoodready,order_menu.isupdate, item_foods.ProductName, variant.variantid, variant.variantName, variant.price as mprice FROM order_menu LEFT JOIN item_foods ON order_menu.menu_id=item_foods.ProductsID LEFT JOIN variant ON order_menu.varientid=variant.variantid WHERE {$where} AND order_menu.isgroup=0";
+		$sql="SELECT order_menu.row_id,order_menu.order_id,order_menu.groupmid as menu_id,order_menu.notes,order_menu.add_on_id,
+		order_menu.addonsqty,order_menu.groupvarient as varientid,order_menu.addonsuid,order_menu.qroupqty as menuqty,
+		order_menu.price as price,order_menu.isgroup,order_menu.food_status,order_menu.allfoodready,order_menu.isupdate,
+		 item_foods.ProductName, variant.variantid, variant.variantName, variant.price as mprice, item_foods.productvat
+		 FROM order_menu 
+		 LEFT JOIN item_foods ON order_menu.groupmid=item_foods.ProductsID 
+		 LEFT JOIN variant ON order_menu.groupvarient=variant.variantid 
+		 WHERE {$where} AND order_menu.isgroup=1 Group BY order_menu.groupmid 
+		 UNION 
+		 SELECT order_menu.row_id,order_menu.order_id,order_menu.menu_id as menu_id,order_menu.notes,order_menu.add_on_id,
+		 order_menu.addonsqty,order_menu.varientid as varientid,order_menu.addonsuid,order_menu.menuqty as menuqty,
+		 order_menu.price as price,order_menu.isgroup,order_menu.food_status,order_menu.allfoodready,order_menu.isupdate,
+		  item_foods.ProductName, variant.variantid, variant.variantName, variant.price as mprice, item_foods.productvat
+		FROM order_menu 
+		LEFT JOIN item_foods ON order_menu.menu_id=item_foods.ProductsID 
+		LEFT JOIN variant ON order_menu.varientid=variant.variantid 
+		WHERE {$where} AND order_menu.isgroup=0";
 		$query=$this->db->query($sql);
 	
         return $query->result();
-		}
+	}
 	public function findgrouporderid($id,$menuid,$vid)
 	{ 
 		$this->db->select('order_menu.*,item_foods.ProductName,variant.variantid,variant.variantName,variant.price');

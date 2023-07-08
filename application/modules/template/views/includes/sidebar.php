@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="sidebar hidden-print">
     <!-- Sidebar user panel -->
     <div class="user-panel text-center">
         <div class="image">

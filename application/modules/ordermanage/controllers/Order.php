@@ -3362,6 +3362,7 @@ class Order extends MX_Controller {
 		    $this->db->update('customer_order',$updatetData);
 		
 		   $data['orderinfo']  	   = $customerorder;
+			$data['waiterinfo']  = $this->order_model->waiterDetail($data['orderinfo']->waiter_id);
 		   $data['customerinfo']   = $this->order_model->read('*', 'customer_info', array('customer_id' => $customerorder->customer_id));
 		   $data['iteminfo']       = $this->order_model->customerorder($id);
 		   $data['billinfo']	   = $this->order_model->billinfo($id);
@@ -3370,7 +3371,7 @@ class Order extends MX_Controller {
 	       $data['currency']=$this->order_model->currencysetting($settinginfo->currency);
 
 		   $data['module'] = "ordermanage";
-		   $data['page']   = "details";   
+		   $data['page']   = "details_new";   
 		   echo Modules::run('template/layout', $data); 
 		  
 		}
@@ -3418,6 +3419,7 @@ class Order extends MX_Controller {
 		   
 		}
 	public function posorderinvoice($id){
+		// echo 'dadasd';exit;
 		$this->permission->method('ordermanage','read')->redirect();
 			$saveid=$this->session->userdata('id');
 		   $isadmin=$this->session->userdata('user_type');
@@ -3428,6 +3430,7 @@ class Order extends MX_Controller {
 		    $this->db->update('customer_order',$updatetData);
 		  
 		   $data['orderinfo']  	   = $customerorder;
+		   $data['waiterinfo']  = $this->order_model->waiterDetail($data['orderinfo']->waiter_id);
 		   $data['customerinfo']   = $this->order_model->read('*', 'customer_info', array('customer_id' => $customerorder->customer_id));
 		   $data['iteminfo']       = $this->order_model->customerorder($id);
 		   $data['billinfo']	   = $this->order_model->billinfo($id);
@@ -3444,9 +3447,11 @@ class Order extends MX_Controller {
 	       $data['currency']=$this->order_model->currencysetting($settinginfo->currency);
 		   $data['taxinfos'] = $this->taxchecking();
 		   $data['module'] = "ordermanage";
-		   $data['page']   = "posinvoice";   
-		   $view = $this->load->view('posinvoice',$data,true);
-		   echo $view;exit;
+			//$data['page']   = "posinvoice";   
+		   $data['page']   = "details_new";   
+		   echo Modules::run('template/layout', $data);   
+		//    $view = $this->load->view('details_new',$data,true);
+		//    echo $view;exit;
 		  
 		}
 	public function posprintdirect($id){
@@ -3470,10 +3475,11 @@ class Order extends MX_Controller {
 	       $data['currency']=$this->order_model->currencysetting($settinginfo->currency);
            $data['taxinfos'] = $this->taxchecking();
 		   $data['module'] = "ordermanage";
-		   $data['page']   = "posinvoice";   
-		
-		   $view = $this->load->view('posinvoicedirectprint',$data,true);
-		   echo $view;exit;
+		//    $data['page']   = "posinvoice";   
+		   $data['page']   = "details_new";   
+		   echo Modules::run('template/layout', $data);
+		//    $view = $this->load->view('posinvoicedirectprint',$data,true);
+		//    echo $view;exit;
 		  
 		}
 	public function dueinvoice($id){

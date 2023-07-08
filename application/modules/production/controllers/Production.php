@@ -273,7 +273,7 @@ class Production extends MX_Controller {
 		$vid=$this->input->post('vid');
 		$qty=$this->input->post('qty',true);
 		echo $available=$this->production_model->checkingredientstock($foodid,$vid,$qty);
-		}
+	}
 	public function possetting(){
 	   $this->permission->method('production','read')->redirect();
        $data['title'] = display('production_setting');

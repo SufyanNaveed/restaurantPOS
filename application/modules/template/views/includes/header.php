@@ -1,5 +1,5 @@
 <a href="<?php echo base_url('dashboard/home') ?>" class="logo"> 
-    <span class="logo-lg">
+    <span class="logo-lg hidden-print">
         <img src="<?php echo base_url((!empty($setting->logo)?$setting->logo:'assets/img/icons/mini-logo.png')) ?>" alt="">
     </span>
 </a>

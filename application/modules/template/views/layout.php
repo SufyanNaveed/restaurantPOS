@@ -78,11 +78,11 @@
             </aside>
 			<?php } ?>
             <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper <?php if($title=='posinvoiceloading'){ echo "ml-0";}?>">
+            <div class="content-wrapper <?php if($title=='posinvoiceloading'){ echo "ml-0";}?> ">
                 <!-- Content Header (Page header) -->
                 <?php if(($title!='posinvoiceloading') && ($title!='Counter Dashboard')){?>
-                <section class="content-header">
-                    <div class="header-icon"><i class="pe-7s-home"></i></div>
+                <section class="content-header hidden-print">
+                    <div class="header-icon hidden-print"><i class="pe-7s-home"></i></div>
                     <div class="header-title">
                         <h1><?php if($this->uri->segment(2)=="paymentmethod"){
 									$titlename="Payment Method";
